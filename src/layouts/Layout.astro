@@ -1,0 +1,102 @@
+---
+import '../styles/global.css';
+
+interface Props {
+	title: string;
+	description?: string;
+	/** URL canónica absoluta del sitio */
+	site?: string;
+	/** Imagen para previsualización al compartir (ruta desde /public) */
+	ogImage?: string;
+}
+
+const {
+	title,
+	description = 'Franco Barrionuevo — Técnico de Soporte IT (N1/N2) y Automatización de Procesos. Linux, Windows, redes TCP/IP, GLPI/ITSM, n8n, Python y Agentes de IA. Basado en Carapachay, Buenos Aires.',
+	site = 'https://franmaxi.dev',
+	ogImage = '/og.png',
+} = Astro.props;
+
+const canonical = new URL(Astro.url.pathname, site).href;
+const ogImageUrl = new URL(ogImage, site).href;
+
+const person = {
+	'@context': 'https://schema.org',
+	'@type': 'Person',
+	name: 'Franco Barrionuevo',
+	jobTitle: 'IT Support & Automation Engineer',
+	email: 'mailto:franmaxii@hotmail.com',
+	url: site,
+	address: {
+		'@type': 'PostalAddress',
+		addressLocality: 'Carapachay',
+		addressRegion: 'Buenos Aires',
+		addressCountry: 'AR',
+	},
+	sameAs: [
+		'https://www.linkedin.com/in/franco-maximiliano-barrionuevo/',
+		'https://github.com/franmaxii',
+	],
+	knowsAbout: [
+		'IT Support',
+		'Troubleshooting N1/N2',
+		'Linux',
+		'Windows',
+		'Redes TCP/IP',
+		'GLPI',
+		'ITSM',
+		'Automatización n8n',
+		'Python',
+		'Agentes de IA',
+	],
+};
+---
+
+<!doctype html>
+<html lang="es">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="color-scheme" content="dark" />
+		<meta name="theme-color" content="#060B14" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link rel="canonical" href={canonical} />
+
+		<title>{title}</title>
+		<meta name="description" content={description} />
+		<meta name="author" content="Franco Barrionuevo" />
+		<meta
+			name="keywords"
+			content="Soporte IT, Help Desk, Troubleshooting N1 N2, Administración de sistemas, Linux, Windows, Redes TCP/IP, VPN, SSH, GLPI, ITSM, ITIL, SLA, Automatización, n8n, Python, Bash, Agentes de IA, Buenos Aires"
+		/>
+
+		<!-- Open Graph -->
+		<meta property="og:type" content="profile" />
+		<meta property="og:title" content={title} />
+		<meta property="og:description" content={description} />
+		<meta property="og:url" content={canonical} />
+		<meta property="og:image" content={ogImageUrl} />
+		<meta property="og:locale" content="es_AR" />
+		<meta property="profile:first_name" content="Franco" />
+		<meta property="profile:last_name" content="Barrionuevo" />
+
+		<!-- Twitter -->
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:title" content={title} />
+		<meta name="twitter:description" content={description} />
+		<meta name="twitter:image" content={ogImageUrl} />
+
+		<!-- Fuentes -->
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Playfair+Display:wght@700;900&display=swap"
+			rel="stylesheet"
+		/>
+
+		<script is:inline type="application/ld+json" set:html={JSON.stringify(person)} />
+	</head>
+	<body class="bg-[#060B14] text-slate-300 print:bg-white print:text-black">
+		<slot />
+	</body>
+</html>

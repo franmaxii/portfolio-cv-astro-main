@@ -1,0 +1,58 @@
+@import "tailwindcss";
+
+/* ==============================================================
+   THEME TOKENS
+   Registran las familias tipográficas para que la clase
+   `font-display` (usada en toda la página) realmente se aplique.
+============================================================== */
+@theme {
+	--font-sans: "DM Sans", ui-sans-serif, system-ui, sans-serif;
+	--font-display: "Playfair Display", Georgia, "Times New Roman", serif;
+	--color-primary: #3b82f6;
+}
+
+/* ==============================================================
+   BASE
+============================================================== */
+html {
+	scroll-behavior: smooth;
+	/* Compensa la nav fija al saltar a un ancla (#perfil, #trayectoria, ...) */
+	scroll-padding-top: 6rem;
+}
+
+body {
+	font-family: var(--font-sans);
+	background-color: #060b14;
+	color: #cbd5e1;
+	overflow-x: hidden;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	html {
+		scroll-behavior: auto;
+	}
+	*,
+	*::before,
+	*::after {
+		animation-duration: 0.01ms !important;
+		animation-iteration-count: 1 !important;
+		transition-duration: 0.01ms !important;
+	}
+}
+
+@media print {
+	html {
+		scroll-padding-top: 0;
+	}
+	body {
+		background: #fff !important;
+		color: #000 !important;
+	}
+	.no-print {
+		display: none !important;
+	}
+	@page {
+		margin: 1cm 1.5cm;
+		size: A4;
+	}
+}
