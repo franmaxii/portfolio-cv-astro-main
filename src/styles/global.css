@@ -7,7 +7,7 @@
 ============================================================== */
 @theme {
 	--font-sans: "DM Sans", ui-sans-serif, system-ui, sans-serif;
-	--font-display: "Playfair Display", Georgia, "Times New Roman", serif;
+	--font-display: "Space Grotesk", "DM Sans", ui-sans-serif, system-ui, sans-serif;
 	--color-primary: #3b82f6;
 }
 
@@ -25,6 +25,25 @@ body {
 	background-color: #060b14;
 	color: #cbd5e1;
 	overflow-x: hidden;
+	-webkit-font-smoothing: antialiased;
+	text-rendering: optimizeLegibility;
+}
+
+/* Halo de profundidad muy sutil detrás de todo el contenido */
+body::before {
+	content: "";
+	position: fixed;
+	inset: 0;
+	z-index: -1;
+	pointer-events: none;
+	background:
+		radial-gradient(60% 42% at 50% -8%, rgba(37, 99, 235, 0.18), transparent 70%),
+		radial-gradient(48% 38% at 100% 8%, rgba(56, 189, 248, 0.08), transparent 72%);
+}
+
+::selection {
+	background: rgba(59, 130, 246, 0.32);
+	color: #fff;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -47,6 +66,9 @@ body {
 	body {
 		background: #fff !important;
 		color: #000 !important;
+	}
+	body::before {
+		display: none !important;
 	}
 	.no-print {
 		display: none !important;
